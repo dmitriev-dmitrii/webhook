@@ -1,0 +1,53 @@
+html,
+body {
+  color-scheme: dark;
+  padding: 0;
+  font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+a {
+  color: #00B7FF;
+}
+
+fieldset {
+  margin: 0;
+  padding: 1em;
+  border-radius: 7px;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+button {
+  font-weight:bold ;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  border: 1px solid;
+}
+label {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+input {
+  text-align: center;
+  margin-left: 1em;
+  padding: 0.25rem 0.5rem;
+}
+
+.form__actions {
+  margin-top: 1em;
+  display: flex;
+  gap: 0.25rem;
+  align-self: end;
+}

@@ -1,0 +1,46 @@
+<h1>Webhook redirect</h1>
+<p>Создать связь с api и <a target="blank" href="https://theboroer.github.io/localtunnel-www/">local tunnel</a> </p>
+
+<fieldset>
+
+    <form id="connect-local-tunnel">
+
+        <label>
+           local tunnel url
+            <input  required name="url" type="text" >
+        </label>
+
+        <label>
+            phone number
+            <input required name="phone-number" type="text">
+        </label>
+
+        <label>
+            to-be-removed-at days
+            <input name="to-be-removed-at"  value="7">
+        </label>
+
+        <div class="form__actions">
+            <button type="reset">reset</button>
+            <button type="submit">submit</button>
+        </div>
+
+    </form>
+
+</fieldset>
+
+<h2>Активные связи</h2>
+
+<ul id="connections-list">
+    {{#each connections}}
+        <li>
+            <div>
+               <b>url</b>: <span>{{ this.url}}</span>
+            </div>
+            <div>
+                <b>phoneNumber</b>: <span>{{ this.phoneNumber}}</span>
+            </div>
+        </li>
+    {{/each}}
+</ul>
+
