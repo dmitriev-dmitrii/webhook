@@ -1,3 +1,3 @@
 
-module.exports = millisecondsInDay = 86400
+module.exports = millisecondsInDay = 86400000
 // 1 day
