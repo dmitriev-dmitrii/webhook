@@ -19,5 +19,9 @@ function formHandle (event) {
            phoneNumber,
            toBeRemovedAt,
         })
+    }).then((res)=>{
+        window.location.reload();
+    }).catch((err)=>{
+        alert('что то пошло не так')
     })
 }

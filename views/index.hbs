@@ -1,5 +1,22 @@
 <h1>Webhook redirect</h1>
-<p>Создать связь с api и <a target="blank" href="https://theboroer.github.io/localtunnel-www/">local tunnel</a> </p>
+
+
+
+<details>
+    <summary>Создать связь с api и <a target="blank" href="https://theboroer.github.io/localtunnel-www/">local tunnel</a></summary>
+    <p>
+    ссылку нужно указать к конкретному роуту например : <br>
+    https://bms-webhook-dmitriev-dmitrii.loca.lt/api/notice/recipient/whats-app <br>
+    </p>
+    <p>
+    формат телефона следующий:<br>
+    79111111111
+    </p>
+    <p>
+    сообщения с указанного номера будут перенаправлены на ваш local tunnel url
+    </p>
+</details>
+
 
 <fieldset>
 
@@ -31,16 +48,16 @@
 
 <h2>Активные связи</h2>
 
-<ul id="connections-list">
+<ol id="connections-list">
     {{#each connections}}
         <li>
             <div>
-               <b>url</b>: <span>{{ this.url}}</span>
+               <b>url</b>: <a target="_blank" href="{{ this.url}}">{{ this.url}}</a>
             </div>
             <div>
                 <b>phoneNumber</b>: <span>{{ this.phoneNumber}}</span>
             </div>
         </li>
     {{/each}}
-</ul>
+</ol>
 

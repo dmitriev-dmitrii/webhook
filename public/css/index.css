@@ -51,3 +51,34 @@ input {
   gap: 0.25rem;
   align-self: end;
 }
+
+li{
+  border-bottom: 1px solid;
+  padding: 0.5rem ;
+  margin-bottom: 1rem;
+}
+li span{
+  padding: 0.25rem;
+}
+
+details {
+  border: 1px solid ;
+  border-radius: 4px;
+  padding: 0.5em 0.5em 0;
+  margin-bottom: 2rem;
+}
+
+summary {
+  font-weight: bold;
+  margin: -0.5em -0.5em 0;
+  padding: 0.5em;
+}
+
+details[open] {
+  padding: 0.5em;
+}
+
+details[open] summary {
+  border-bottom: 1px solid ;
+  margin-bottom: 0.5em;
+}
