@@ -2,14 +2,13 @@ var express = require('express');
 var router = express.Router();
 var { getConnectionsList } = require('../connections')
 const axios = require("axios");
-
+const { APP_ACCESS_TOKEN } = process.env
 router.get("/webhook", async (req, res) => {
 
   /**
    * UPDATE YOUR VERIFY TOKEN
    *This will be the Verify Token value when you set up webhook
    **/
-  const verify_token = process.env.VERIFY_TOKEN;
 
   // Parse params from the webhook verification request
 
@@ -32,7 +31,7 @@ router.get("/webhook", async (req, res) => {
     return;
   }
 
-  if (mode === "subscribe" && token === verify_token) {
+  if (mode === "subscribe" && token === APP_ACCESS_TOKEN) {
     // Respond with 200 OK and challenge token from the request
     console.log("WHATS_APP_WEBHOOK_VERIFIED");
     res.status(200).send(challenge);
@@ -47,12 +46,23 @@ router.get("/webhook", async (req, res) => {
 router.post("/webhook", async (req, res) => {
   const {body} = req
 
-  const message = body?.entry[0]?.changes[0]?.value?.messages[0]
-
-  if (!message) {
-    res.sendStatus(404);
+  if (!body.object) {
+    res.sendStatus(404)
     return
   }
+
+  if (
+      !req.body.entry &&
+      req.body.entry[0].changes &&
+      req.body.entry[0].changes[0] &&
+      req.body.entry[0].changes[0].value.messages &&
+      req.body.entry[0].changes[0].value.messages[0]
+  ) {
+    res.sendStatus(200)
+    return
+  }
+
+  const message = body?.entry[0]?.changes[0]?.value?.messages[0]
 
   const urlsData = await getConnectionsList()
 
@@ -66,6 +76,7 @@ router.post("/webhook", async (req, res) => {
   const  targetIndex =  urlsData.findIndex((item)=> {
     return   item.phoneNumber === from
   })
+
   if (!targetIndex > 0) {
 
   await  axios({
@@ -74,7 +85,6 @@ router.post("/webhook", async (req, res) => {
       data: JSON.stringify(req.body),
       headers: { "Content-Type": "application/json" },
     });
-
   }
 
   res.sendStatus(200);

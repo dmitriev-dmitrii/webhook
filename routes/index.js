@@ -1,9 +1,9 @@
 var express = require('express');
+const {getConnectionsList, pushToConnectionsList, deleteConnectionByUrl} = require("../connections");
 var router = express.Router();
-var {getConnectionsList, pushToConnectionsList , deleteConnectionByUrl } = require('../connections')
 
 router.get('/', async function(req, res, next) {
-    const  connections = await getConnectionsList ()
+    const  connections = await getConnectionsList()
     res.render('index', { connections } );
 });
 

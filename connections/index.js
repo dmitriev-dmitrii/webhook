@@ -1,5 +1,5 @@
 var fs = require('fs')
-var appRootPath = require('app-root-path');
+
 const millisecondsInDay = require('../constants/millisecondsInDay')
 
  class Connection {
@@ -12,13 +12,13 @@ const millisecondsInDay = require('../constants/millisecondsInDay')
 
 }
 
-
-const connectionsFilePath =  appRootPath + '/data/connections.json'
-  async function getConnectionsList  () {
+const connectionsFilePath = __dirname + '/connections.json'
+  async function getConnectionsList () {
     try{
      const data =    await fs.promises.readFile(connectionsFilePath, "utf8")
-        return JSON.parse(data)
+      return JSON.parse(data)
     }catch (err) {
+        console.log('err')
         return []
     }
 }
@@ -67,6 +67,6 @@ async function  deleteConnectionByUrl ([...args]) {
     );
 }
 
-exports.pushToConnectionsList = pushToConnectionsList;
-exports.deleteConnectionByUrl = deleteConnectionByUrl;
-exports.getConnectionsList = getConnectionsList;
+module.exports.pushToConnectionsList = pushToConnectionsList;
+module.exports.deleteConnectionByUrl = deleteConnectionByUrl;
+module.exports.getConnectionsList = getConnectionsList;
