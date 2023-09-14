@@ -10,19 +10,11 @@ router.get("/whats-app", async (req, res) => {
    *This will be the Verify Token value when you set up webhook
    **/
 
-  // Parse params from the webhook verification request
+ // Parse params from the webhook verification request
 
-  let mode = req.query["hub.mode"];
-  let token = req.query["hub.verify_token"];
-  let challenge = req.query["hub.challenge"];
-
-  const params = req.query;
-  // console.log(params);
-
-  // const res2 = await axios(
-  //     `${resendLocalTonelUrl}`,
-  //     { params }
-  // );
+  let mode = req?.query["hub.mode"];
+  let token = req?.query["hub.verify_token"];
+  let challenge = req?.query["hub.challenge"];
 
   // Check if a token and mode were sent
   if (!mode || !token) {
@@ -51,37 +43,26 @@ router.post("/whats-app", async (req, res) => {
     return
   }
 
-  if (
-      !req.body.entry &&
-      req.body.entry[0].changes &&
-      req.body.entry[0].changes[0] &&
-      req.body.entry[0].changes[0].value.messages &&
-      req.body.entry[0].changes[0].value.messages[0]
-  ) {
-    res.sendStatus(200)
-    return
-  }
+  const messages = req.body?.entry[0]?.changes[0].value?.messages
 
-  const message = body?.entry[0]?.changes[0]?.value?.messages[0]
+  const data = await getConnectionsList()
 
-  const urlsData = await getConnectionsList()
-
-  if (!urlsData.length) {
+  if (!data.length || !messages.length) {
     res.sendStatus(200);
     return
   }
 
-  const {from} = message;
+  const {from} = messages[0];
 
-  const  targetIndex =  urlsData.findIndex((item)=> {
+  const  targetIndex =  data.findIndex((item)=> {
     return   item.phoneNumber === from
   })
 
   if (!targetIndex > 0) {
 
-  await  axios({
+    await  axios({
       method: "POST",
-      url: urlsData[targetIndex],
+      url: data[targetIndex].url,
       data: JSON.stringify(req.body),
       headers: { "Content-Type": "application/json" },
     });
