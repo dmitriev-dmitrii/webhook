@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var { getConnectionsList } = require('../connections')
+var { getConnectionsList } = require('../../connections')
 const axios = require("axios");
 const { APP_ACCESS_TOKEN } = process.env
-router.get("/webhook", async (req, res) => {
+router.get("/whats-app", async (req, res) => {
 
   /**
    * UPDATE YOUR VERIFY TOKEN
@@ -43,7 +43,7 @@ router.get("/webhook", async (req, res) => {
   res.sendStatus(403);
 });
 
-router.post("/webhook", async (req, res) => {
+router.post("/whats-app", async (req, res) => {
   const {body} = req
 
   if (!body.object) {

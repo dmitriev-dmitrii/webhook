@@ -9,7 +9,7 @@ var path = require('path');
 global.appRootPath = path.resolve(__dirname);
 
 var indexRouter = require('./routes/index');
-var webhookRouter = require('./routes/webhook');
+var whatsAppRouter = require('./routes/webhook/whats-app');
 
 var app = express();
 // view engine setup
@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/webhook', webhookRouter);
+app.use( '/webhook',whatsAppRouter);
 
 
 
